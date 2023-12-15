@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dog Names</title>
+</head>
+<body>
+    <h1>Dog Names</h1>
+    <script>
+        var dogNames = [];
+        for (var i = 0; i < 6; i++) {
+            var name = prompt("Enter the name of dog " + (i + 1) + ":");
+            if (name !== null && name.trim() !== "") {
+                dogNames.push(name);
+            } else {
+                alert("Dog name cannot be empty. Please enter a valid name.");
+                i--;
+            }
+        }
+
+        dogNames.sort(function(a, b) {
+            return b.localeCompare(a);
+        });
+
+        var ul = document.createElement("ul");
+        dogNames.forEach(function (name) {
+            var li = document.createElement("li");
+            li.textContent = name;
+            ul.appendChild(li);
+        });
+
+        document.body.appendChild(ul);
+    </script>
+</body>
+</html>
+<

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add HTML to Element</title>
+</head>
+<body>
+    <h1>Add HTML to Element</h1>
+    <div id="target"></div>
+
+    <script>
+        var targetElement = document.getElementById("target");
+
+        var names = ["John", "Paul", "Jones"];
+
+        var htmlContent = "<ul>";
+
+        for (var i = 0; i < names.length; i++) {
+            htmlContent += "<li>" + names[i] + "</li>";
+        }
+
+        htmlContent += "</ul>";
+
+        targetElement.innerHTML = htmlContent;
+    </script>
+</body>
+</html>

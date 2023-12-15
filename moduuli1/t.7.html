@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller</title>
+</head>
+<body>
+    <h1>Dice Roller</h1>
+    <label for="numDice">Enter the number of dice rolls:</label>
+    <input type="number" id="numDice">
+    <button onclick="rollDice()">Roll Dice</button>
+    <p id="result"></p>
+
+    <script>
+        function rollDice() {
+            var numDice = parseInt(document.getElementById("numDice").value);
+            var sum = 0;
+
+            if (!isNaN(numDice) && numDice > 0) {
+                for (var i = 0; i < numDice; i++) {
+                    // Roll a six-sided die (you can modify the range as needed)
+                    var roll = Math.floor(Math.random() * 6) + 1;
+                    sum += roll;
+                }
+
+                var resultElement = document.getElementById("result");
+                resultElement.textContent = "Sum of dice rolls: " + sum;
+            } else {
+                alert("Please enter a valid number of dice rolls.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add HTML to Element</title>
+</head>
+<body>
+    <h1>Add HTML to Element</h1>
+    <div id="target"></div>
+
+    <script>
+        var targetElement = document.getElementById("target");
+
+        var htmlContent = `
+            <ul class="my-list">
+                <li>First item</li>
+                <li>Second item</li>
+                <li>Third item</li>
+            </ul>
+        `;
+
+        targetElement.innerHTML = htmlContent;
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lisää HTML-elementtiin</title>
+</head>
+<body>
+    <h1>Lisää HTML-elementtiin</h1>
+    <select id="target"></select>
+
+    <script>
+        // Hae elementti tunnuksella "target"
+        var targetElement = document.getElementById("target");
+
+        // Määritä opiskelijoiden taulukko niiden arvoilla ja nimillä
+        var students = [
+            { value: "2345768", name: "John" },
+            { value: "2134657", name: "Paul" },
+            { value: "5423679", name: "Jones" }
+        ];
+
+        // Luo <select>-elementti
+        var selectElement = document.createElement("select");
+
+        // Käy läpi opiskelijoiden taulukko ja luo kullekin opiskelijalle <option>-elementti
+        for (var i = 0; i < students.length; i++) {
+            var student = students[i];
+            var optionElement = document.createElement("option");
+            optionElement.value = student.value;
+            optionElement.textContent = student.name;
+            selectElement.appendChild(optionElement);
+        }
+
+        // Lisää <select>-elementti "target" -elementtiin
+        targetElement.appendChild(selectElement);
+    </script>
+</body>
+</html>

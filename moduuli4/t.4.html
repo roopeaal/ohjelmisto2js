@@ -1,0 +1,52 @@
+// Määritä TV-ohjelmien API:n URL-osoite
+const apiUrl = "https://api.tvmaze.com/search/shows?q=";
+
+// Funktionäyttö TV-ohjelmat
+function näytäTVOhjelmat(hakuTermi) {
+  const säiliö = document.getElementById("tv-ohjelmat-container");
+  säiliö.innerHTML = ""; // Tyhjennä aiemmat tulokset
+
+  // Haetaan TV-ohjelmien tiedot API:sta
+  fetch(apiUrl + hakuTermi)
+    .then((vastaus) => vastaus.json())
+    .then((data) => {
+      data.forEach((tulos) => {
+        const ohjelma = tulos.show;
+        const ohjelmanNimi = ohjelma.name;
+        const ohjelmanKuva = ohjelma.image ? ohjelma.image.medium : "https://via.placeholder.com/210x295?text=Ei%20löytynyt";
+
+        // Luo div-elementti jokaista TV-ohjelmaa varten
+        const ohjelmaDiv = document.createElement("div");
+        ohjelmaDiv.classList.add("tv-ohjelma");
+
+        // Luo img-elementti TV-ohjelman julistetta varten
+        const ohjelmanKuvaElem = document.createElement("img");
+        ohjelmanKuvaElem.src = ohjelmanKuva;
+
+        // Luo otsikko-elementti TV-ohjelman nimeä varten
+        const ohjelmanNimiElem = document.createElement("h2");
+        ohjelmanNimiElem.textContent = ohjelmanNimi;
+
+        // Liitä kuva ja nimi TV-ohjelma-diviin
+        ohjelmaDiv.appendChild(ohjelmanKuvaElem);
+        ohjelmaDiv.appendChild(ohjelmanNimiElem);
+
+        // Liitä TV-ohjelma-divi säiliöön
+        säiliö.appendChild(ohjelmaDiv);
+      });
+    })
+    .catch((virhe) => {
+      console.error("Virhe hakiessa TV-ohjelmia:", virhe);
+    });
+}
+
+// Käsittele lomakkeen lähettäminen
+const lomake = document.getElementById("haku-lomake");
+lomake.addEventListener("submit", (e) => {
+  e.preventDefault(); // Estä oletusarvoinen lomakkeen lähettäminen
+  const hakuTermi = document.getElementById("haku-termi").value;
+  näytäTVOhjelmat(hakuTermi);
+});
+
+// Alustava näyttö (voit näyttää joitain oletusarvoisia ohjelmia)
+näytäTVOhjelmat("Breaking Bad");

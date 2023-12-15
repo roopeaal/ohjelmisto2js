@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chuck Norris -jutut</title>
+</head>
+<body>
+    <h1>Chuck Norris -jutut</h1>
+
+    <!-- Lomake hakutermin syöttämiseen -->
+    <form id="jokeForm">
+        <label for="searchTerm">Syötä hakusana:</label>
+        <input type="text" id="searchTerm" required>
+        <button type="submit">Hae</button>
+    </form>
+
+    <!-- Säiliö juttujen näyttämistä varten -->
+    <div id="jokeContainer"></div>
+
+    <script>
+        const jokeForm = document.getElementById("jokeForm");
+        const searchTermInput = document.getElementById("searchTerm");
+        const jokeContainer = document.getElementById("jokeContainer");
+
+        jokeForm.addEventListener("submit", function (e) {
+            e.preventDefault(); // Estä lomakkeen lähettäminen ja sivun päivittyminen
+
+            const searchTerm = searchTermInput.value;
+            if (searchTerm.trim() === "") {
+                alert("Syötä hakusana.");
+                return;
+            }
+
+            // Hae jutut Chuck Norrism API:sta
+            fetch(`https://api.chucknorris.io/jokes/search?query=${searchTerm}`)
+                .then(response => response.json())
+                .then(data => {
+                    jokeContainer.innerHTML = ""; // Tyhjennä aiemmat jutut
+
+                    if (data.result.length === 0) {
+                        jokeContainer.innerHTML = "<p>Ei löytynyt juttuja.</p>";
+                    } else {
+                        // Näytä kunkin jutun
+                        data.result.forEach(joke => {
+                            const article = document.createElement("article");
+                            const p = document.createElement("p");
+                            p.textContent = joke.value;
+                            article.appendChild(p);
+                            jokeContainer.appendChild(article);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Virhe juttujen hakemisessa:", error);
+                    jokeContainer.innerHTML = "<p>Juttujen hakemisessa tapahtui virhe.</p>";
+                });
+        });
+    </script>
+</body>
+</html>
